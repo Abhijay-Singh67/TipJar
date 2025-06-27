@@ -2,30 +2,31 @@
 import React, { useEffect, useState } from 'react'
 import LineChart from '@/components/LineChart'
 function formatTimestamp(timestampString) {
-    const timestamp = Number(timestampString);
-    const date = new Date(timestamp);
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const day = date.getDate();
-    const year = date.getFullYear();
-    const months = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    const month = months[date.getMonth()];
-    return `${hours}:${minutes}, ${day} ${month} ${year}`;
+  const timestamp = Number(timestampString);
+  const date = new Date(timestamp);
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  const month = months[date.getMonth()];
+  return `${hours}:${minutes}, ${day} ${month} ${year}`;
 }
 const page = () => {
   const [amount, setAmount] = useState(0)
   const [followers, setFollowers] = useState(0)
+  const [following, setFollowing] = useState([])
   const [transactions, setTransactions] = useState([])
   const getTrans = async () => {
     let req = await fetch("/api/transactions")
     let res = await req.json();
     const trans = Array.from(res.transaction)
     let amount = 0;
-    trans.forEach((value)=>{
-      amount+=value.amount;
+    trans.forEach((value) => {
+      amount += value.amount;
     })
     setAmount(amount);
     setTransactions(trans.slice(-4).reverse());
@@ -34,6 +35,7 @@ const page = () => {
     let req = await fetch("/api/follow")
     let res = await req.json();
     setFollowers(res.followers);
+    setFollowing(Array.from(res.following))
   }
   useEffect(() => {
     (async () => {
@@ -60,21 +62,37 @@ const page = () => {
           <h1 className='text-8xl text-center saira'>{followers}</h1>
         </div>
       </div>
-      <div className='bg-[#ffffff4b] rounded-3xl backdrop-blur-[2px] row-span-2'></div>
+      <div className='bg-[#ffffff4b] rounded-3xl backdrop-blur-[2px] row-span-2'>
+        <div className='bg-gradient-to-b from-[#FFC107] h-full rounded-4xl p-3 shadow-2xl shadow-rgba(0, 0, 0, 0.05)'>
+
+        </div>
+      </div>
       <div className='bg-[#ffffff4b] rounded-3xl backdrop-blur-[2px] p-2 box-border flex justify-center items-center'>
         <div className='bg-gradient-to-b from-[#c4fdc9] w-[95%] h-[95%] rounded-4xl p-3 overflow-hidden shadow-2xl shadow-rgba(0, 0, 0, 0.05)'>
           <h1 className='text-center doto text-5xl text-[#222222]'>Tips Recieved</h1>
           <div className="container flex flex-col gap-4 items-center w-full mt-5">
-            {transactions.map((i, index)=>{
-              return <div key={index} className="card bg-white w-[80%] h-[20%] rounded-2xl flex justify-between py-3 items-center text-2xl px-5 hover:scale-125 transition-all duration-200 cursor-pointer">
-              <h1>{formatTimestamp(i.timestamp)}</h1>
-              <h1 className='text-[#4CAF50]'>+{i.amount}</h1>
-            </div>
+            {transactions.map((i, index) => {
+              return <div key={index} className="card bg-gray-100 hover:bg-white w-[80%] h-[20%] rounded-2xl flex justify-between py-3 items-center text-2xl px-5 hover:scale-125 transition-all duration-200 cursor-pointer">
+                <h1>{formatTimestamp(i.timestamp)}</h1>
+                <h1 className='text-[#4CAF50]'>+{i.amount}</h1>
+              </div>
             })}
           </div>
         </div>
       </div>
-      <div className='bg-[#ffffff4b] rounded-3xl backdrop-blur-[2px]'></div>
+      <div className='bg-[#ffffff4b] rounded-3xl backdrop-blur-[2px] p-2 box-border flex justify-center items-center'>
+        <div className='bg-gradient-to-b from-[#ff2f2f] w-[95%] h-[95%] rounded-4xl p-3 overflow-y-scroll hide-scrollbar shadow-2xl shadow-rgba(0, 0, 0, 0.05)'>
+          <h1 className='text-center doto text-5xl text-[#222222]'>Send Tips</h1>
+          <div className="container flex flex-col gap-4 items-center w-full mt-5">
+            {following.map((i, index) => {
+              return <div key={index} className="card bg-gray-100 hover:bg-white w-[80%] h-[20%] rounded-2xl flex justify-between py-2 items-center text-2xl px-5 hover:scale-125 transition-all duration-200 cursor-pointer">
+                <h1 className='font-bold'>{i.username}</h1>
+                <img src="payment.gif" className='w-7' />
+              </div>
+            })}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

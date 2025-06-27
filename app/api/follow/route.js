@@ -11,6 +11,6 @@ export async function GET(request) {
     const fol = db.collection("followers")
     const userdb = db.collection("userdata")
     let email = (await userdb.findOne({SID:SID})).email
-    let followers = (await fol.findOne({email:email})).followers
-    return NextResponse.json({success:true, followers:followers})
+    let follow = (await fol.findOne({email:email}))
+    return NextResponse.json({success:true, followers:follow.followers, following:follow.following})
 }
