@@ -11,7 +11,6 @@ const Navbar = () => {
             let req = await fetch("/api/auth")
             let res = await req.json()
             if (res.logged === true) {
-                console.log("res")
                 setLogged(true)
             } else {
                 setLogged(false)
