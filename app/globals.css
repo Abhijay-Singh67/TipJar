@@ -2,22 +2,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Caprasimo&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
     background-color: #e7e6e6;
 }
 
 .heading {
-    font-family: "Caprasimo", serif;
-    font-weight: 600;
-    font-style: normal;
-    font-size: 120px;
+  font-family:serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 120px;
 }
-
+.saira{
+  font-family: "Saira Stencil One";
+}
+.noto{
+  font-family: "Noto Serif";
+}
 .roboto {
     font-family: "Roboto";
 }
-
+.capra{
+  font-family: "Caprasimo";
+}
 .quicksand {
     font-family: "Quicksand", sans-serif;
     font-style: normal;

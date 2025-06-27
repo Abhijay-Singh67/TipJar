@@ -12,7 +12,6 @@ export async function GET(request) {
     if(find.length===0){
         return NextResponse.json({logged: false})
     }else{
-        console.log("Logged In")
         return NextResponse.json({logged:true})
     }
 }
