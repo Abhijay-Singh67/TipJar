@@ -48,9 +48,9 @@ const page = () => {
         <div className='w-[70vw] h-[80vh] bg-[#f3f2f2] mx-auto my-[5vh] rounded-4xl'>
             <div className='flex relative'>
                 <div className='transition-all duration-700'>
-                    <img src="loginPage.avif" className={`transition-transform duration-1000 h-[80vh] w-[50%] rounded-4xl absolute ${side ? 'translate-x-[100%]' : 'translate-x-[0%]'}`} />
+                    <img src="loginPage.avif" className={`transition-transform duration-1000 h-[80vh] w-[50%] rounded-4xl absolute z-10 ${side ? 'translate-x-[100%]' : 'translate-x-[0%]'}`} />
                 </div>
-                <div className="left font-mono flex flex-col items-center w-[50%] justify-center">
+                <div className="font-mono flex flex-col items-center w-[50%] justify-center">
                     <div className="content flex flex-col items-center  py-10 gap-10 w-[60%] h-[70%]">
                         <h1 className='text-4xl'>Create an Account</h1>
                         <form ref={ref} action={(e) => { signup(e); ref.current.reset() }} className='flex flex-col gap-7 text-lg'>
@@ -65,7 +65,7 @@ const page = () => {
                         </Link>
                     </div>
                 </div>
-                <div className="right font-mono flex flex-col items-center w-[50%] justify-center">
+                <div className="font-mono flex flex-col items-center w-[50%] justify-center">
                     <div className="content flex flex-col items-center  py-10 gap-10 w-[60%] h-[70%]">
                         <h1 className='text-4xl'>Login</h1>
                         <form ref={ref} action={(e) => { login(e); ref.current.reset() }} className='flex flex-col gap-7 text-lg'>

@@ -13,24 +13,27 @@ export default function LineChart() {
             let res = await req.json();
             let temp = (Array.from(res.transaction)).slice(-10)
             let trans = []
-            temp.forEach((value)=>{
+            temp.forEach((value) => {
                 trans.push(value.amount);
             })
             setTransactions(trans);
         })()
     }, [])
     const data = {
-        labels: ['','','','','','','','','',''],
+        labels: ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
         datasets: [
             {
-                label: "Hello",
-                data: transactions,
+                label: "",
+                data: transactions.map((i) => i / 10),
                 fill: false,
-                pointBackgroundColor: "rgb(177, 149, 236)",
+                pointBackgroundColor: "#9f7ee6",
                 backgroundColor: '#b095ec70',
                 borderColor: '#5522c3',
+                pointBorderColor: 'rgba(85, 34, 195, 0.3)',
+                pointBorderWidth: 15,
+                pointHoverRadius: 8,
                 fill: true,
-                tension: 0,
+                tension: 0.2,
                 pointRadius: 5,
             },
         ],
@@ -45,17 +48,17 @@ export default function LineChart() {
         scales: {
             x: {
                 grid: { display: true },
-                ticks: { display: true },
+                ticks: { display: true, color: "#000000" },
             },
             y: {
-                grid: { display: true },
-                ticks: { display: true },
+                grid: { display: false },
+                ticks: { display: false },
             },
         },
     };
 
     return (
-        <div className="w-full max-w-2xl mx-auto bg-white rounded-2xl p-1">
+        <div className="w-full max-w-2xl mx-auto bg-transparent rounded-2xl p-1">
             <Line data={data} options={options} />
         </div>
     );

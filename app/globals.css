@@ -1,14 +1,7 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Caprasimo&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Doto:wght@900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
 body {
-    background-color: #F9F9F9;
+    background:url(../public/three.jpg);
+    background-position: center;
 }
 
 .heading {
@@ -16,28 +9,6 @@ body {
   font-weight: 600;
   font-style: normal;
   font-size: 120px;
-}
-.doto{
-  font-family: "Doto";
-}
-.saira{
-  font-family: "Saira Stencil One";
-}
-.noto{
-  font-family: "Noto Serif";
-}
-.poppins{
-  font-family: "Poppins";
-}
-.roboto {
-    font-family: "Roboto";
-}
-.capra{
-  font-family: "Caprasimo";
-}
-.quicksand {
-    font-family: "Quicksand", sans-serif;
-    font-style: normal;
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
@@ -52,10 +23,58 @@ body {
   animation: wiggle 0.4s ease-in-out;
 }
 
+.right{
+  animation: right 1s ease-in-out;
+  animation-fill-mode: both;
+}
+.left{
+  animation: left 1s ease-in-out;
+  animation-fill-mode: both;
+}
+.up{
+  animation: up 1s ease-in-out;
+  animation-fill-mode: both;
+}
+.down{
+  animation: down 1s ease-in-out;
+  animation-fill-mode: both;
+}
+
 @keyframes wiggle {
   0%   { transform: rotate(0deg); }
   25%  { transform: rotate(5deg); }
   50%  { transform: rotate(-5deg); }
   75%  { transform: rotate(4deg); }
   100% { transform: rotate(0deg); }
+}
+
+@keyframes right{
+  from{
+    transform: translateX(-100%)
+  }to{
+    transform: translateX(0%);
+  }
+}
+@keyframes left{
+  from{
+    transform: translateX(+100%)
+  }to{
+    transform: translateX(0%);
+  }
+}
+
+@keyframes up{
+  from{
+    transform: translateY(100%)
+  }to{
+    transform: translateX(0%);
+  }
+}
+
+@keyframes down{
+  from{
+    transform: translateY(-100%)
+  }to{
+    transform: translateX(0%);
+  }
 }
