@@ -47,7 +47,7 @@ const page = () => {
         <div className='bg-gradient-to-b from-[#b9dffa] rounded-4xl w-[70%] flex justify-between items-center p-3 gap-2 shadow-2xl shadow-rgba(0, 0, 0, 0.05)'>
           <div className="content flex flex-col justify-center h-full gap-5">
             <div className="head">
-              <h1 className='text-5xl text-center noto text-[#222222]'>Total Income</h1>
+              <h1 className='text-5xl text-center doto text-[#222222]'>Total Income</h1>
               <p className='text-lg quicksand'></p>
             </div>
             <h1 className='text-5xl text-center saira text-[#222222]'>Rs.{amount}</h1>
@@ -55,7 +55,7 @@ const page = () => {
           <LineChart />
         </div>
         <div className='bg-gradient-to-b from-[#b9dffa] rounded-4xl w-[30%] flex flex-col justify-center gap-2 shadow-2xl shadow-rgba(0, 0, 0, 0.05)'>
-          <h1 className='text-center text-5xl noto text-[#222222]'>Followers</h1>
+          <h1 className='text-center text-5xl doto text-[#222222]'>Followers</h1>
           <p className='text-xl text-center poppins text-[#222222]'>These are the people who follow you and send you tips.</p>
           <h1 className='text-8xl text-center saira'>{followers}</h1>
         </div>
@@ -63,7 +63,7 @@ const page = () => {
       <div className='bg-[#ffffff4b] rounded-3xl backdrop-blur-[2px] row-span-2'></div>
       <div className='bg-[#ffffff4b] rounded-3xl backdrop-blur-[2px] p-2 box-border flex justify-center items-center'>
         <div className='bg-gradient-to-b from-[#c4fdc9] w-[95%] h-[95%] rounded-4xl p-3 overflow-hidden shadow-2xl shadow-rgba(0, 0, 0, 0.05)'>
-          <h1 className='text-center doto text-5xl noto text-[#222222]'>Tips Recieved</h1>
+          <h1 className='text-center doto text-5xl text-[#222222]'>Tips Recieved</h1>
           <div className="container flex flex-col gap-4 items-center w-full mt-5">
             {transactions.map((i, index)=>{
               return <div key={index} className="card bg-white w-[80%] h-[20%] rounded-2xl flex justify-between py-3 items-center text-2xl px-5 hover:scale-125 transition-all duration-200 cursor-pointer">
