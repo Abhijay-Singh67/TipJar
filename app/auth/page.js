@@ -19,14 +19,12 @@ const page = () => {
     },)
     const login = async (e) => {
         let data = {
-            username: e.get("username"),
+            email: e.get("email"),
             password: e.get("password")
         }
         let req = await fetch("/api/login", { method: "POST", headers: { "Content-Type": "application/json", }, body: JSON.stringify(data) })
         let res = await req.json()
         if (res.success) {
-            localStorage.setItem("SID",res.SID)
-            // router.push("/dashboard")
             window.location.href = "/dashboard";
         } else {
             setLog(true)
@@ -41,7 +39,6 @@ const page = () => {
         let req = await fetch("/api/signup", { method: "POST", headers: { "Content-Type": "application/json", }, body: JSON.stringify(data) })
         let res = await req.json()
         if (res.success) {
-            localStorage.setItem("SID",res.SID)
             window.location.href = "/dashboard";
         } else {
             setSign(true)
@@ -72,7 +69,7 @@ const page = () => {
                     <div className="content flex flex-col items-center  py-10 gap-10 w-[60%] h-[70%]">
                         <h1 className='text-4xl'>Login</h1>
                         <form ref={ref} action={(e) => { login(e); ref.current.reset() }} className='flex flex-col gap-7 text-lg'>
-                            <input required name="username" type="username" placeholder="Username" className='bg-white rounded-full py-5 px-5 w-[400px]' />
+                            <input required name="email" type="email" placeholder="Email" className='bg-white rounded-full py-5 px-5 w-[400px]' />
                             <input required name="password" type="password" placeholder="Password" className='bg-white rounded-full py-5 px-5' />
                             <button type='submit' className='cursor-pointer rounded-full bg-red-500 w-max self-center px-5 py-3 text-white'>Login</button>
                         </form>
