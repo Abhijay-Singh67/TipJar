@@ -11,7 +11,12 @@ export default function LineChart() {
         (async () => {
             let req = await fetch("/api/transactions")
             let res = await req.json();
-            setTransactions((Array.from(res.transaction)).slice(-10))
+            let temp = (Array.from(res.transaction)).slice(-10)
+            let trans = []
+            temp.forEach((value)=>{
+                trans.push(value.amount);
+            })
+            setTransactions(trans);
         })()
     }, [])
     const data = {
