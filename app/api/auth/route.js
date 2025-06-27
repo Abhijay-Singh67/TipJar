@@ -1,0 +1,32 @@
+import { NextResponse } from "next/server";
+import { MongoClient } from "mongodb";
+import { cookies } from 'next/headers';
+const client = new MongoClient("mongodb://localhost:27017/")
+client.connect();
+export async function GET(request) {
+    const cookieStore = cookies();
+    const SID = (await cookieStore).get("SID")?.value
+    const db = client.db("TipJar");
+    const collection = db.collection("userdata");
+    const find = await collection.find({SID:SID}).toArray();
+    if(find.length===0){
+        return NextResponse.json({logged: false})
+    }else{
+        console.log("Logged In")
+        return NextResponse.json({logged:true})
+    }
+}
+
+export async function DELETE(request){
+    const response = NextResponse.json({success: true});
+    response.cookies.set({
+        name: "SID",
+        value: '',
+        httpOnly: true,
+        secure: false,
+        sameSite: 'strict',
+        path: "/",
+        expires: new Date(0)
+    });
+    return response;
+}
