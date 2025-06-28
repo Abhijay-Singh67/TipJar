@@ -22,8 +22,8 @@ body {
 .wiggle:hover {
   animation: wiggle 0.4s ease-in-out;
 }
-
-/* .right{
+/* 
+.right{
   animation: right 1s ease-in-out;
   animation-fill-mode: both;
 }
@@ -37,6 +37,10 @@ body {
 }
 .down{
   animation: down 1s ease-in-out;
+  animation-fill-mode: both;
+}
+.grow{
+  animation: grow 0.1s ease-in-out;
   animation-fill-mode: both;
 } */
 @keyframes wiggle {
@@ -75,5 +79,13 @@ body {
     transform: translateY(-100%)
   }to{
     transform: translateX(0%);
+  }
+}
+
+@keyframes grow{
+  from{
+    transform: scale(0%);
+  }to{
+    transform: scale(100%);
   }
 }
