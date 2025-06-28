@@ -39,7 +39,7 @@ const page = () => {
   const [thumb, setThumb] = useState("");
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(0);
-  const [err,setErr] = useState(false);
+  const [err, setErr] = useState(false);
 
   const { edgestore } = useEdgeStore();
   const getTrans = async () => {
@@ -59,37 +59,34 @@ const page = () => {
     setFollowers(res.followers);
     setFollowing(Array.from(res.following))
   }
-  const getProjects = async ()=>{
+  const getProjects = async () => {
     let req = await fetch("/api/project")
     let res = await req.json();
-    let arr = Array.from(res.projects.projects)
-    if(arr){
-      setProjects(arr)
-    }   
+    if (res.projects.projects) {
+      setProjects(Array.from(res.projects.projects))
+    }
   }
   const projectAdd = () => {
     setProject(!project);
   }
   const submitProject = async (e, url, thumb) => {
-    if(url==="" || thumb===""){
-      setErr(true);
-      return
+    if (url !== "") {
+      const data = {
+        "title": e.get("title"),
+        "description": e.get("description"),
+        "url": url,
+        "thumbnail": thumb
+      }
+      let req = await fetch("/api/project", { method: "POST", headers: { "Content-Type": "application/json", }, body: JSON.stringify(data) })
+      let res = await req.json();
+      if (!res.success) {
+        setErr(true);
+      } else {
+        window.location.href = "/dashboard";
+      }
+      setUrl("");
+      setThumb("");
     }
-    const data = {
-      "title": e.get("title"),
-      "description": e.get("description"),
-      "url": url,
-      "thumbnail": thumb
-    }
-    let req = await fetch("/api/project", { method: "POST", headers: { "Content-Type": "application/json", }, body: JSON.stringify(data) })
-    let res = await req.json();
-    if (!res.success) {
-      setErr(true);
-    }else{
-      window.location.href="/dashboard";
-    }
-    setUrl("");
-    setThumb("");
   }
   useEffect(() => {
     (async () => {
@@ -134,7 +131,7 @@ const page = () => {
                   </div>
                 </div>
               </div>
-              {err && <h1 className='text-red-500'>Error Uploading files please try again...</h1>}
+              {err && <h1 className='text-red-500'>File upload not finished...</h1>}
             </div>
             <input type="title" name='title' className='w-[70%] bg-white py-3 px-5 rounded-4xl focus:outline-0' maxLength={100} placeholder='Project Title' required={true} />
             <textarea type="description" name="description" className='w-[70%] h-[50%] bg-white py-3 px-5 rounded-4xl focus:outline-0' maxLength={1500} placeholder='Write a description within 1500 characters ...' required={true}></textarea>
@@ -161,15 +158,15 @@ const page = () => {
           <h1 className='text-center text-5xl text-[#ffffffe8] poppins'>Projects</h1>
           <h1 className='text-[#ffffffe8] poppins text-xl text-center cursor-pointer hover:shadow py-3 rounded-4xl hover:border-b border-[#00000038]' onClick={projectAdd}>Add</h1>
           <div className="container flex flex-col">
-            {projects.map((i,index)=>{
+            {projects.map((i, index) => {
               return <div key={index} className="card w-full h-[10vh] border-t-1 border-[#00000023] flex items-center px-4 gap-5 hover:scale-[1.1] transition-all duration-200 cursor-pointer">
-              <img src={i.thumbnail} className='w-[80px] h-[80px] rounded-2xl' />
-              <div className="truncate content flex-grow">
-                <h1 className='text-3xl text-[#ffffffe8] poppins'>{i.title}</h1>
-                <p className='text-[#ffffffec] poppins'>{i.description}</p>
+                <img src={i.thumbnail} className='w-[80px] h-[80px] rounded-2xl' />
+                <div className="truncate content flex-grow">
+                  <h1 className='text-3xl text-[#ffffffe8] poppins'>{i.title}</h1>
+                  <p className='text-[#ffffffec] poppins'>{i.description}</p>
+                </div>
               </div>
-            </div>
-            })}           
+            })}
           </div>
         </div>
         <div className='bg-white/10 backdrop-blur-xl border border-white/30 rounded-3xl box-border flex flex-col justify-around items-center p-5 relative up'>
