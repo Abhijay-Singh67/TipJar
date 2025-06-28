@@ -52,6 +52,7 @@ const page = () => {
   }
 
   useEffect(() => {
+    console.log("hello");
     (async () => {
       await getTrans()
       await getFollow()
@@ -103,9 +104,17 @@ const page = () => {
       await getProjects();
     }
   }
+  const payment = (email)=>{
+
+  }
   return (
     <div>
       <div className='h-[90vh] grid grid-cols-3 grid-rows-2 gap-3 p-3 overflow-hidden'>
+        <div className='w-screen h-screen fixed top-0 left-0 bg-[#ffffff67] z-15 backdrop-blur-[1px] flex justify-center items-center'>
+          <div className='h-[80vh] w-[30vw] bg-white flex justify-center items-center'>
+            <img src="creativity.png" className='w-[300px] h-[300px]' />
+          </div>
+        </div>
         {project && <div className='w-screen h-screen fixed top-0 left-0 bg-[#ffffff67] z-15 backdrop-blur-[1px] flex justify-center items-center'>
           <div className='grow flex justify-center items-center'>
             <div className='w-[50vw] h-[80vh] bg-white/50 backdrop-blur-xl border border-white/30 rounded-4xl'>
@@ -210,7 +219,7 @@ const page = () => {
           <h1 className='text-center text-5xl text-[#ffffffe8]'>Send Tips</h1>
           <div className="container flex flex-col items-center w-full flex-grow">
             {following.map((i, index) => {
-              return <div key={index} className="group border-t-1 border-[#00000023] w-[80%] h-[20%] flex justify-between py-2 items-center text-2xl px-5 hover:scale-125 transition-all duration-200 cursor-pointer">
+              return <div key={index} onClick={()=>{payment(i.email)}} className="group border-t-1 border-[#00000023] w-[80%] h-[20%] flex justify-between py-2 items-center text-2xl px-5 hover:scale-125 transition-all duration-200 cursor-pointer">
                 <h1 className='text-[#ffffff9a] group-hover:text-[#ffffff]'>{i.username}</h1>
                 <img src="payment.gif" className='w-7' />
               </div>
