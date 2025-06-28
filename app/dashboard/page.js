@@ -1,19 +1,7 @@
 "use client"
-import React, { useEffect, useState } from 'react'
-import LineChart from '@/components/LineChart'
-import { Doto, Roboto } from "next/font/google";
+import React, { useEffect, useState, useRef } from 'react'
 import { useEdgeStore } from '@/lib/edgestore';
-import {useRouter} from "next/navigation";
-
-const doto = Doto({
-  subsets: ['latin'],
-})
-
-const poppins = Roboto({
-  weight: "400",
-  subsets: ['latin'],
-})
-
+import LineChart from '@/components/LineChart'
 
 function formatTimestamp(timestampString) {
   const timestamp = Number(timestampString);
@@ -33,18 +21,18 @@ const page = () => {
   const [amount, setAmount] = useState(0)
   const [followers, setFollowers] = useState(0)
   const [following, setFollowing] = useState([])
+  const [transactions, setTransactions] = useState([])
   const [project, setProject] = useState(false)
   const [projects, setProjects] = useState([]);
-  const [transactions, setTransactions] = useState([])
+  const [state, setState] = useState(false);
   const [url, setUrl] = useState("");
   const [thumb, setThumb] = useState("");
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(0);
   const [err, setErr] = useState(false);
-
-  const router = useRouter();
-
+  const form = useRef();
   const { edgestore } = useEdgeStore();
+
   const getTrans = async () => {
     let req = await fetch("/api/transactions")
     let res = await req.json();
@@ -62,21 +50,35 @@ const page = () => {
     setFollowers(res.followers);
     setFollowing(Array.from(res.following))
   }
+
+  useEffect(() => {
+    (async () => {
+      await getTrans()
+      await getFollow()
+      await getProjects()
+    })()
+  }, [])
   const getProjects = async () => {
     let req = await fetch("/api/project")
     let res = await req.json();
-    if (res.projects.projects) {
+    if ((Array.from(res.projects.projects)).length > 0) {
       setProjects(Array.from(res.projects.projects))
+    } else {
+      setProjects([])
     }
   }
   const projectAdd = () => {
     setProject(!project);
+    setProgress(0);
   }
   const submitProject = async (e, url, thumb) => {
+    e.preventDefault();
+    console.log(e);
+    const formData = new FormData(e.target);
     if (url !== "") {
       const data = {
-        "title": e.get("title"),
-        "description": e.get("description"),
+        "title": formData.get("title"),
+        "description": formData.get("description"),
         "url": url,
         "thumbnail": thumb
       }
@@ -85,70 +87,69 @@ const page = () => {
       if (!res.success) {
         setErr(true);
       } else {
-        window.location.href = "/dashboard";
+        form.current.reset();
+        await getProjects();
+        setProject(!project);
       }
       setUrl("");
       setThumb("");
     }
+    setProgress(0);
   }
-  const deleteProject = async (pid)=>{
+  const deleteProject = async (pid) => {
     let req = await fetch(`/api/project?pid=${pid}`, { method: "DELETE", headers: { "Content-Type": "application/json", } })
     let res = await req.json();
+    if (res.success) {
+      await getProjects();
+    }
   }
-  useEffect(() => {
-    (async () => {
-      await getTrans()
-      await getFollow()
-      await getProjects()
-    })()
-  }, [])
   return (
     <div>
-      {project && <div className='w-[100vw] h-[100vh] absolute top-0 left-0 bg-[#ffffff67] z-15 backdrop-blur-[1px] flex justify-center items-center'>
-        <div className='grow flex justify-center items-center'>
-          <div className='w-[50vw] h-[80vh] bg-white/50 backdrop-blur-xl border border-white/30 rounded-4xl'>
-            <div className='absolute right-7 top-7' onClick={projectAdd}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="cursor-pointer transition-transform duration-100 hover:scale-110">
-                <line x1="6" y1="6" x2="18" y2="18" stroke="black" strokeWidth="2" strokeLinecap="round" />
-                <line x1="6" y1="18" x2="18" y2="6" stroke="black" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-            </div>
-            <form action={(e) => { submitProject(e, url, thumb) }} className='flex flex-col items-center gap-10 justify-center h-[100%]'>
-              <div className='flex flex-col gap-3 items-center justify-center '>
-                <div className="content flex gap-2 items-center justify-center">
-                  <h1 className='text-xl'>Choose a cover for your project</h1>
-                  <input type="file" onChange={(e) => {
-                    setFile(e.target.files?.[0]);
-                  }} name="projectCover" accept="image/" className='mt-1 border border-[#0000004b] rounded-4xl px-2 cursor-pointer' required={true} />
-                </div>
-                <div className="upload flex gap-2 justify-center items-center">
-                  <div onClick={async () => {
-                    if (file) {
-                      const res = await edgestore.tipjarImages.upload({
-                        file,
-                        onProgressChange: (progress) => {
-                          setProgress(progress);
-                        }
-                      });
-                      setUrl(res.url);
-                      setThumb(res.thumbnailUrl);
-                    }
-                  }} className='mt-1 border border-[#0000004b] rounded-4xl px-2 cursor-pointer'>Upload</div>
-                  <div className='h-[10px] w-44 border rounded-xl overflow-hidden'>
-                    <div className='h-full bg-blue-500 transition-all duration-150' style={{ width: `${progress}%` }}>
+      <div className='h-[90vh] grid grid-cols-3 grid-rows-2 gap-3 p-3 overflow-hidden'>
+        {project && <div className='w-screen h-screen fixed top-0 left-0 bg-[#ffffff67] z-15 backdrop-blur-[1px] flex justify-center items-center'>
+          <div className='grow flex justify-center items-center'>
+            <div className='w-[50vw] h-[80vh] bg-white/50 backdrop-blur-xl border border-white/30 rounded-4xl'>
+              <div className='absolute right-7 top-7' onClick={projectAdd}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="cursor-pointer transition-transform duration-100 hover:scale-110">
+                  <line x1="6" y1="6" x2="18" y2="18" stroke="black" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="6" y1="18" x2="18" y2="6" stroke="black" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </div>
+              <form ref={form} onSubmit={(e) => { submitProject(e, url, thumb) }} className='flex flex-col items-center gap-10 justify-center h-[100%]'>
+                <div className='flex flex-col gap-3 items-center justify-center '>
+                  <div className="content flex gap-2 items-center justify-center">
+                    <h1 className='text-xl'>Choose a cover for your project</h1>
+                    <input type="file" onChange={(e) => {
+                      setFile(e.target.files?.[0]);
+                    }} name="projectCover" accept="image/" className='mt-1 border border-[#0000004b] rounded-4xl px-2 cursor-pointer' required={true} />
+                  </div>
+                  <div className="upload flex gap-2 justify-center items-center">
+                    <div onClick={async () => {
+                      if (file) {
+                        const res = await edgestore.tipjarImages.upload({
+                          file,
+                          onProgressChange: (progress) => {
+                            setProgress(progress);
+                          }
+                        });
+                        setUrl(res.url);
+                        setThumb(res.thumbnailUrl);
+                      }
+                    }} className='mt-1 border border-[#0000004b] rounded-4xl px-2 cursor-pointer'>Upload</div>
+                    <div className='h-[10px] w-44 border rounded-xl overflow-hidden'>
+                      <div className='h-full bg-blue-500 transition-all duration-150' style={{ width: `${progress}%` }}>
+                      </div>
                     </div>
                   </div>
+                  {err && <h1 className='text-red-500'>File upload not finished...</h1>}
                 </div>
-                {err && <h1 className='text-red-500'>File upload not finished...</h1>}
-              </div>
-              <input type="title" name='title' className='w-[70%] bg-white py-3 px-5 rounded-4xl focus:outline-0' maxLength={30} placeholder='Project Title' required={true} />
-              <textarea type="description" name="description" className='w-[70%] h-[50%] bg-white py-3 px-5 rounded-4xl focus:outline-0' maxLength={1500} placeholder='Write a description within 1500 characters ...' required={true}></textarea>
-              <button type='submit' className='cursor-pointer hover:border-b border-[#00000038] py-2 px-4 rounded-full hover:shadow' >Submit</button>
-            </form>
+                <input type="title" name='title' className='w-[70%] bg-white py-3 px-5 rounded-4xl focus:outline-0' maxLength={30} placeholder='Project Title' required={true} />
+                <textarea type="description" name="description" className='w-[70%] h-[50%] bg-white py-3 px-5 rounded-4xl focus:outline-0' maxLength={1500} placeholder='Write a description within 1500 characters ...' required={true}></textarea>
+                <button type='submit' className='cursor-pointer hover:border-b border-[#00000038] py-2 px-4 rounded-full hover:shadow' >Submit</button>
+              </form>
+            </div>
           </div>
-        </div>
-      </div>}
-      <div className='h-[90vh] grid grid-cols-3 grid-rows-2 gap-3 p-3 overflow-hidden'>
+        </div>}
         <div className='bg-white/10 backdrop-blur-xl border border-white/30 rounded-3xl col-span-2 flex gap-3 p-5 right'>
           <div className="content flex flex-col justify-center h-full gap-5">
             <div className="head">
@@ -163,7 +164,7 @@ const page = () => {
             <h1 className='text-8xl text-center bg-gradient-to-r from-purple-300 via-pink-300 to-red-300 bg-clip-text text-transparent'>{followers}</h1>
           </div>
         </div>
-        <div className='bg-white/10 backdrop-blur-xl border border-white/30 rounded-3xl row-span-2 left p-5 relative flex flex-col gap-7'>
+        <div className='bg-white/10 backdrop-blur-xl border border-white/30 rounded-3xl row-span-2 left p-5 flex flex-col gap-7'>
           <h1 className='text-center text-5xl text-[#ffffffe8] poppins'>Projects</h1>
           <h1 className='text-[#ffffffe8] poppins text-xl text-center cursor-pointer hover:shadow py-3 rounded-4xl hover:border-b border-[#00000038]' onClick={projectAdd}>Add</h1>
           <div className="container flex flex-col overflow-y-scroll hide-scrollbar">
@@ -171,10 +172,10 @@ const page = () => {
               return <div key={index} className="group w-full h-[10vh] border-t-1 border-[#00000023] flex items-center px-10 gap-5 hover:scale-[1.1] transition-all duration-200 cursor-pointer">
                 <img src={i.data.thumbnail} className='w-[80px] h-[80px] rounded-2xl' />
                 <div className="truncate content flex-grow">
-                  <h1 className='group-hover:text-[#ffffff] text-2xl text-[#ffffff9a] poppins'>{i.data.title}</h1>
+                  <h1 className='group-hover:text-[#ffffff] text-2xl text-[#ffffffb7] poppins'>{i.data.title}</h1>
                   <p className='text-[#ffffff9a] group-hover:text-white poppins'>{i.data.description}</p>
                 </div>
-                <div onClick={()=>{deleteProject(i.pid)}}>
+                <div onClick={() => { deleteProject(i.pid) }}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-8 h-8 text-[#ffffff9a] group-hover:text-white hover:text-red-600"

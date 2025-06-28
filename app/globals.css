@@ -22,8 +22,8 @@ body {
 .wiggle:hover {
   animation: wiggle 0.4s ease-in-out;
 }
-/* 
-.right{
+
+/* .right{
   animation: right 1s ease-in-out;
   animation-fill-mode: both;
 }
