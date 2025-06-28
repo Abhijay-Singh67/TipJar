@@ -25,7 +25,6 @@ export default function LineChart() {
             {
                 label: "",
                 data: transactions.map((i) => i / 10),
-                fill: false,
                 pointBackgroundColor: "#9f7ee6",
                 backgroundColor: '#b095ec70',
                 borderColor: '#5522c3',
