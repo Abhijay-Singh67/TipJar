@@ -16,6 +16,14 @@ export async function GET(request) {
     }
 }
 
+export async function POST(request) {
+    let data = await request.json();
+    const db = client.db("TipJar");
+    const collection = db.collection("userdata");
+    const user = await collection.findOne({email:data.email})
+    return NextResponse.json({success:true, upi:user.upi});
+}
+
 export async function DELETE(request){
     const response = NextResponse.json({success: true});
     response.cookies.set({

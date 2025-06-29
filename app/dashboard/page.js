@@ -24,13 +24,17 @@ const page = () => {
   const [transactions, setTransactions] = useState([])
   const [project, setProject] = useState(false)
   const [projects, setProjects] = useState([]);
-  const [state, setState] = useState(false);
+  const [pay, setPay] = useState(false);
   const [url, setUrl] = useState("");
   const [thumb, setThumb] = useState("");
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(0);
   const [err, setErr] = useState(false);
+  const [payerr, setPayerr] = useState(false);
+  const [upi, setUpi] = useState("error.jpg");
+  const [mail, setMail] = useState("");
   const form = useRef();
+  const payform = useRef();
   const { edgestore } = useEdgeStore();
 
   const getTrans = async () => {
@@ -52,7 +56,6 @@ const page = () => {
   }
 
   useEffect(() => {
-    console.log("hello");
     (async () => {
       await getTrans()
       await getFollow()
@@ -74,7 +77,6 @@ const page = () => {
   }
   const submitProject = async (e, url, thumb) => {
     e.preventDefault();
-    console.log(e);
     const formData = new FormData(e.target);
     if (url !== "") {
       const data = {
@@ -104,17 +106,63 @@ const page = () => {
       await getProjects();
     }
   }
-  const payment = (email)=>{
-
+  const payment = async (email) => {
+    let req = await fetch("/api/auth", { method: "POST", headers: { "Content-Type": "application/json", }, body: JSON.stringify({ email: email }) })
+    let res = await req.json();
+    if (res.upi === "") {
+      setPayerr(true);
+    } else {
+      setUpi(res.upi);
+      setMail(email);
+    }
+    payState();
+  }
+  const payState = () => {
+    if (payerr) {
+      setPayerr(false);
+    }
+    setPay(!pay);
+  }
+  const collect = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const unixTimestamp = Date.now();
+    const data = {
+      "email": mail,
+      "amount": formData.get("amount"),
+      "timestamp": unixTimestamp,
+    }
+    let req = await fetch("/api/transactions", { method: "POST", headers: { "Content-Type": "application/json", }, body: JSON.stringify(data) })
+    let res = await req.json();
+    if (res.success) {
+      payState();
+      setUpi("");
+      setMail("");
+    }
   }
   return (
     <div>
       <div className='h-[90vh] grid grid-cols-3 grid-rows-2 gap-3 p-3 overflow-hidden'>
-        <div className='w-screen h-screen fixed top-0 left-0 bg-[#ffffff67] z-15 backdrop-blur-[1px] flex justify-center items-center'>
-          <div className='h-[80vh] w-[30vw] bg-white flex justify-center items-center'>
-            <img src="creativity.png" className='w-[300px] h-[300px]' />
+        {pay && <div className='w-screen h-screen fixed top-0 left-0 bg-[#ffffff67] z-15 backdrop-blur-[1px] flex justify-center items-center'>
+          <div className='grow flex justify-center items-center'>
+            <div className='w-[30vw] h-[90vh] bg-white/50 backdrop-blur-xl border border-white/30 rounded-4xl flex flex-col gap-5 items-center justify-center'>
+              <div className='absolute right-7 top-7' onClick={payState}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="cursor-pointer transition-transform duration-100 hover:scale-110">
+                  <line x1="6" y1="6" x2="18" y2="18" stroke="black" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="6" y1="18" x2="18" y2="6" stroke="black" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </div>
+              <img src={upi} className='w-[300px] object-center' />
+              {payerr && <h1 className='text-red-500 italic'>This user is not accepting any tips right now</h1>}
+              <form ref={payform} onSubmit={(e) => { collect(e) }} className='w-[100%] flex flex-col gap-5 items-center justify-center h-[30%]'>
+                <input type="number" name="amount" className='bg-white py-3 px-5 rounded-4xl focus:outline-0 w-[50%]' min={1} max={1000} required={true} placeholder='Amount' />
+                <input type="text" name="tid" minLength={10} required={true} className='bg-white py-3 px-5 rounded-4xl focus:outline-0 w-[70%]' placeholder='UPI Transaction ID' />
+                <h1 className='w-[70%] text-center italic'>*Note: The UPI Transaction ID is displayed on your UPI app after the payment is processed.</h1>
+                <button type='submit' className='cursor-pointer hover:border-b border-[#00000038] py-2 px-4 rounded-full hover:shadow'>Add Tip</button>
+              </form>
+            </div>
           </div>
-        </div>
+        </div>}
         {project && <div className='w-screen h-screen fixed top-0 left-0 bg-[#ffffff67] z-15 backdrop-blur-[1px] flex justify-center items-center'>
           <div className='grow flex justify-center items-center'>
             <div className='w-[50vw] h-[80vh] bg-white/50 backdrop-blur-xl border border-white/30 rounded-4xl'>
@@ -219,7 +267,7 @@ const page = () => {
           <h1 className='text-center text-5xl text-[#ffffffe8]'>Send Tips</h1>
           <div className="container flex flex-col items-center w-full flex-grow">
             {following.map((i, index) => {
-              return <div key={index} onClick={()=>{payment(i.email)}} className="group border-t-1 border-[#00000023] w-[80%] h-[20%] flex justify-between py-2 items-center text-2xl px-5 hover:scale-125 transition-all duration-200 cursor-pointer">
+              return <div key={index} onClick={() => { payment(i.email) }} className="group border-t-1 border-[#00000023] w-[80%] h-[20%] flex justify-between py-2 items-center text-2xl px-5 hover:scale-125 transition-all duration-200 cursor-pointer">
                 <h1 className='text-[#ffffff9a] group-hover:text-[#ffffff]'>{i.username}</h1>
                 <img src="payment.gif" className='w-7' />
               </div>

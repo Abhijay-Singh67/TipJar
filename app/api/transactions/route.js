@@ -14,3 +14,14 @@ export async function GET(request) {
     let transaction = (await transactions.findOne({email:email})).transactions
     return NextResponse.json({success:true, transaction:transaction})
 }
+
+export async function POST(request) {
+    let data = await request.json();
+    const db = client.db("TipJar")
+    const collection = db.collection("transactions")
+    const user = await collection.findOne({email:data.email})
+    let transactions = user.transactions
+    transactions.push({timestamp:String(data.timestamp),amount:Number(data.amount)})
+    await collection.updateOne({email:data.email},{$set:{transactions:transactions}})
+    return NextResponse.json({success:true})
+}
