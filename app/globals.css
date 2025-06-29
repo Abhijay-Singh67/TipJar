@@ -2,14 +2,12 @@
 body {
     background-color: #e7e6e6;
 }
-
 .imagebg{
   background:url(../public/one.jpg);
   background-position: center;
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
-
 .heading {
   font-family:serif;
   font-weight: 600;
@@ -17,19 +15,17 @@ body {
   font-size: 120px;
 }
 .hide-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 .wiggle {
   display: inline-block;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
-
 .wiggle:hover {
   animation: wiggle 0.4s ease-in-out;
 }
-
-/* .right{
+.right{
   animation: right 1s ease-in-out;
   animation-fill-mode: both;
 }
@@ -45,10 +41,6 @@ body {
   animation: down 1s ease-in-out;
   animation-fill-mode: both;
 }
-.grow{
-  animation: grow 0.1s ease-in-out;
-  animation-fill-mode: both;
-} */
 @keyframes wiggle {
   0%   { transform: rotate(0deg); }
   25%  { transform: rotate(5deg); }
@@ -85,13 +77,5 @@ body {
     transform: translateY(-100%)
   }to{
     transform: translateX(0%);
-  }
-}
-
-@keyframes grow{
-  from{
-    transform: scale(0%);
-  }to{
-    transform: scale(100%);
   }
 }

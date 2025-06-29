@@ -145,11 +145,11 @@ const page = () => {
     }
   }
   return (
-    <div>
+    <div className='select-none'>
       <div className='h-[90vh] grid grid-cols-3 grid-rows-2 gap-3 p-3 overflow-hidden'>
         <div className='w-screen h-screen absolute bg-gray-500 top-0 left-0 z-0 imagebg'></div>
         {pay && <div className='w-screen h-screen fixed top-0 left-0 bg-[#ffffff67] z-15 backdrop-blur-[1px] flex justify-center items-center'>
-          <div className='grow flex justify-center items-center'>
+          <div className=' flex justify-center items-center'>
             <div className='w-[30vw] h-[90vh] bg-white/50 backdrop-blur-xl border border-white/30 rounded-4xl flex flex-col gap-5 items-center justify-center'>
               <div className='absolute right-7 top-7' onClick={payState}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="cursor-pointer transition-transform duration-100 hover:scale-110">
@@ -169,7 +169,7 @@ const page = () => {
           </div>
         </div>}
         {project && <div className='w-screen h-screen fixed top-0 left-0 bg-[#ffffff67] z-15 backdrop-blur-[1px] flex justify-center items-center'>
-          <div className='grow flex justify-center items-center'>
+          <div className='flex justify-center items-center'>
             <div className='w-[50vw] h-[80vh] bg-white/50 backdrop-blur-xl border border-white/30 rounded-4xl'>
               <div className='absolute right-7 top-7' onClick={projectAdd}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="cursor-pointer transition-transform duration-100 hover:scale-110">
