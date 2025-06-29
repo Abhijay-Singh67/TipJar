@@ -80,8 +80,8 @@ const page = () => {
     const formData = new FormData(e.target);
     if (url !== "") {
       const data = {
-        "title": formData.get("title"),
-        "description": formData.get("description"),
+        "title": formData.get("title").trim(),
+        "description": formData.get("description").trim(),
         "url": url,
         "thumbnail": thumb
       }
@@ -129,7 +129,7 @@ const page = () => {
     const unixTimestamp = Date.now();
     const data = {
       "email": mail,
-      "amount": formData.get("amount"),
+      "amount": formData.get("amount").trim(),
       "timestamp": unixTimestamp,
     }
     let req = await fetch("/api/transactions", { method: "POST", headers: { "Content-Type": "application/json", }, body: JSON.stringify(data) })

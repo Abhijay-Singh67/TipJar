@@ -19,8 +19,8 @@ const page = () => {
     },)
     const login = async (e) => {
         let data = {
-            email: e.get("email"),
-            password: e.get("password")
+            email: e.get("email").trim(),
+            password: e.get("password").trim()
         }
         let req = await fetch("/api/login", { method: "POST", headers: { "Content-Type": "application/json", }, body: JSON.stringify(data) })
         let res = await req.json()
@@ -32,9 +32,9 @@ const page = () => {
     }
     const signup = async (e)=>{
         let data = {
-            username:e.get("username"),
-            email:e.get("email"),
-            password:e.get("password")
+            username:e.get("username").trim(),
+            email:e.get("email").trim(),
+            password:e.get("password").trim()
         }
         let req = await fetch("/api/signup", { method: "POST", headers: { "Content-Type": "application/json", }, body: JSON.stringify(data) })
         let res = await req.json()
