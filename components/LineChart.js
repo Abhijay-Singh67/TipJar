@@ -26,7 +26,7 @@ export default function LineChart() {
                 label: "",
                 data: transactions.map((i) => i / 10),
                 pointBackgroundColor: "#9f7ee6",
-                backgroundColor: '#b095ec70',
+                backgroundColor: '#896ec270',
                 borderColor: '#5522c3',
                 pointBorderColor: 'rgba(85, 34, 195, 0.3)',
                 pointBorderWidth: 15,
@@ -57,7 +57,7 @@ export default function LineChart() {
     };
 
     return (
-        <div className="w-full max-w-2xl mx-auto bg-transparent rounded-2xl p-1">
+        <div className="w-full max-w-2xl mx-auto bg-transparent rounded-2xl p-1 cursor-pointer">
             <Line data={data} options={options} />
         </div>
     );

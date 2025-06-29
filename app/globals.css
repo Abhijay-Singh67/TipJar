@@ -1,7 +1,13 @@
 @import "tailwindcss";
 body {
-    background:url(../public/three.jpg);
-    background-position: center;
+    background-color: #e7e6e6;
+}
+
+.imagebg{
+  background:url(../public/one.jpg);
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
 .heading {

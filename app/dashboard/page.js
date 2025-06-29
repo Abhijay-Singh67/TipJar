@@ -93,11 +93,11 @@ const page = () => {
         form.current.reset();
         await getProjects();
         setProject(!project);
+        setProgress(0);
       }
       setUrl("");
       setThumb("");
     }
-    setProgress(0);
   }
   const deleteProject = async (pid) => {
     let req = await fetch(`/api/project?pid=${pid}`, { method: "DELETE", headers: { "Content-Type": "application/json", } })
@@ -147,6 +147,7 @@ const page = () => {
   return (
     <div>
       <div className='h-[90vh] grid grid-cols-3 grid-rows-2 gap-3 p-3 overflow-hidden'>
+        <div className='w-screen h-screen absolute bg-gray-500 top-0 left-0 z-0 imagebg'></div>
         {pay && <div className='w-screen h-screen fixed top-0 left-0 bg-[#ffffff67] z-15 backdrop-blur-[1px] flex justify-center items-center'>
           <div className='grow flex justify-center items-center'>
             <div className='w-[30vw] h-[90vh] bg-white/50 backdrop-blur-xl border border-white/30 rounded-4xl flex flex-col gap-5 items-center justify-center'>
@@ -262,7 +263,7 @@ const page = () => {
             {transactions.map((i, index) => {
               return <div key={index} className="group border-t-1 border-[#00000023] w-[80%] h-[20%] flex justify-between py-3 items-center text-2xl px-5 hover:scale-125 transition-all duration-200 cursor-pointer">
                 <h1 className='text-[#ffffff9a] group-hover:text-[#ffffff]'>{formatTimestamp(i.timestamp)}</h1>
-                <h1 className='text-[#4ADE809a] group-hover:text-[#4ADE80]'>+{i.amount}</h1>
+                <h1 className='text-[#29f7749a] group-hover:text-[#4ADE80]'>+{i.amount}</h1>
               </div>
             })}
           </div>
