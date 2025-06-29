@@ -52,6 +52,7 @@ export async function DELETE(request){
     const collection = db.collection("projects")
     let find = (await collection.findOne({email:email})).projects;
     let projects = find.filter((i)=>i.pid!==pid)
+    let url = (find.filter((i)=>i.pid===pid)[0]).data.url
     await collection.updateOne({email:email},{$set:{projects:projects}})
-    return NextResponse.json({success:true});
+    return NextResponse.json({success:true ,url:url});
 }

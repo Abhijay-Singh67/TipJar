@@ -104,6 +104,9 @@ const page = () => {
     let res = await req.json();
     if (res.success) {
       await getProjects();
+      await edgestore.tipjarImages.delete({
+        url: res.url,
+      });     
     }
   }
   const payment = async (email) => {
@@ -138,6 +141,7 @@ const page = () => {
       payState();
       setUpi("");
       setMail("");
+      payform.current.reset();
     }
   }
   return (

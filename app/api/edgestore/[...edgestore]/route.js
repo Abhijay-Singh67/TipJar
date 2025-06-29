@@ -3,7 +3,11 @@ const {createEdgeStoreNextHandler} = require("@edgestore/server/adapters/next/ap
 
 const es = initEdgeStore.create();
 const edgeStoreRouter = es.router({
-    tipjarImages: es.imageBucket(),
+    tipjarImages: es
+    .imageBucket()
+    .beforeDelete(({ctx, fileInfo})=>{
+        return true;
+    })
 })
 
 const handler = createEdgeStoreNextHandler({
