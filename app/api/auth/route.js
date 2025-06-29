@@ -12,9 +12,16 @@ export async function GET(request) {
     if(find.length===0){
         return NextResponse.json({logged: false})
     }else{
-        console.log("Logged In")
         return NextResponse.json({logged:true})
     }
+}
+
+export async function POST(request) {
+    let data = await request.json();
+    const db = client.db("TipJar");
+    const collection = db.collection("userdata");
+    const user = await collection.findOne({email:data.email})
+    return NextResponse.json({success:true, upi:user.upi});
 }
 
 export async function DELETE(request){

@@ -1,26 +1,23 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Caprasimo&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-
 body {
     background-color: #e7e6e6;
 }
 
+.imagebg{
+  background:url(../public/one.jpg);
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
 .heading {
-    font-family: "Caprasimo", serif;
-    font-weight: 600;
-    font-style: normal;
-    font-size: 120px;
+  font-family:serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 120px;
 }
-
-.roboto {
-    font-family: "Roboto";
-}
-
-.quicksand {
-    font-family: "Quicksand", sans-serif;
-    font-style: normal;
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 .wiggle {
   display: inline-block;
@@ -32,10 +29,69 @@ body {
   animation: wiggle 0.4s ease-in-out;
 }
 
+/* .right{
+  animation: right 1s ease-in-out;
+  animation-fill-mode: both;
+}
+.left{
+  animation: left 1s ease-in-out;
+  animation-fill-mode: both;
+}
+.up{
+  animation: up 1s ease-in-out;
+  animation-fill-mode: both;
+}
+.down{
+  animation: down 1s ease-in-out;
+  animation-fill-mode: both;
+}
+.grow{
+  animation: grow 0.1s ease-in-out;
+  animation-fill-mode: both;
+} */
 @keyframes wiggle {
   0%   { transform: rotate(0deg); }
   25%  { transform: rotate(5deg); }
   50%  { transform: rotate(-5deg); }
   75%  { transform: rotate(4deg); }
   100% { transform: rotate(0deg); }
+}
+
+@keyframes right{
+  from{
+    transform: translateX(-100%)
+  }to{
+    transform: translateX(0%);
+  }
+}
+@keyframes left{
+  from{
+    transform: translateX(+100%)
+  }to{
+    transform: translateX(0%);
+  }
+}
+
+@keyframes up{
+  from{
+    transform: translateY(100%)
+  }to{
+    transform: translateX(0%);
+  }
+}
+
+@keyframes down{
+  from{
+    transform: translateY(-100%)
+  }to{
+    transform: translateX(0%);
+  }
+}
+
+@keyframes grow{
+  from{
+    transform: scale(0%);
+  }to{
+    transform: scale(100%);
+  }
 }

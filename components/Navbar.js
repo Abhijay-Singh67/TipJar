@@ -1,11 +1,9 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 const Navbar = () => {
     const [logged, setLogged] = useState(false);
-    const router = useRouter();
     useEffect(() => {
         (async () => {
             let req = await fetch("/api/auth")
@@ -23,7 +21,7 @@ const Navbar = () => {
         let res = await req.json()
         if (res.success) {
             setLogged(false);
-            router.push("/");
+            window.location.href="/";
         }
     }
 
