@@ -217,13 +217,13 @@ const page = () => {
             <div className="head">
               <h1 className={`text-5xl text-center text-[#ffffffe8]`}>Income</h1>
             </div>
-            <h1 className={`text-7xl text-center font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-red-300 bg-clip-text text-transparent`}>Rs.{amount}</h1>
+            <h1 className={`text-7xl text-center font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent`}>Rs.{amount}</h1>
           </div>
           <LineChart />
           <div className=' w-[30%] flex flex-col justify-center gap-2'>
             <h1 className='text-center text-5xl text-[#ffffffe8]'>Followers</h1>
             <p className='text-xl text-center poppins text-[#ffffffec]'>These are the people who follow you and send you tips.</p>
-            <h1 className='text-8xl text-center bg-gradient-to-r from-purple-300 via-pink-300 to-red-300 bg-clip-text text-transparent'>{followers}</h1>
+            <h1 className='text-8xl text-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent'>{followers}</h1>
           </div>
         </div>
         <div className='bg-white/10 backdrop-blur-xl border border-white/30 rounded-3xl row-span-2 left p-5 flex flex-col gap-7'>
@@ -263,7 +263,7 @@ const page = () => {
             {transactions.map((i, index) => {
               return <div key={index} className="group border-t-1 border-[#00000023] w-[80%] h-[20%] flex justify-between py-3 items-center text-2xl px-5 hover:scale-125 transition-all duration-200 cursor-pointer">
                 <h1 className='text-[#ffffff9a] group-hover:text-[#ffffff]'>{formatTimestamp(i.timestamp)}</h1>
-                <h1 className='text-[#29f7749a] group-hover:text-[#4ADE80]'>+{i.amount}</h1>
+                <h1 className='text-[#00fc5c] group-hover:text-[#00fc5cda]'>+{i.amount}</h1>
               </div>
             })}
           </div>
