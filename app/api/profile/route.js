@@ -21,5 +21,5 @@ export async function GET(request) {
     const SID = (await cookieStore).get("SID")?.value
     const email = (await collection.findOne({ SID: SID })).email;
     let user = await collection.findOne({email:email})
-    return NextResponse.json({ success: true, upi:user.upi, profile:user.profile, thumbnail:user.thumbnail, first:user.first,last:user.last,about:user.about});
+    return NextResponse.json({ success: true, upi:user.upi, profile:user.profile, thumbnail:user.thumbnail, first:user.first,last:user.last,about:user.about, id:user.id});
 }
