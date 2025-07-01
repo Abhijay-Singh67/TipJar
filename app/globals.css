@@ -2,6 +2,13 @@
 body {
     background-color: #e7e6e6;
 }
+.stroke{
+  -webkit-text-stroke: 1px black;
+}
+.cover{
+  background:url(../public/mesh.webp);
+  background-repeat: no-repeat;
+}
 .imagebg{
   background:url(../public/two.jpg);
   background-position: center;
