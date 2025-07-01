@@ -13,5 +13,16 @@ export async function middleware(request) {
         } else {
             return NextResponse.redirect(new URL('/auth?login=true', request.url))
         }
+    }else if(request.nextUrl.pathname.startsWith("/info")){
+        if ((await cookieStore).get("SID")) {
+            console.log();
+        } else {
+            return NextResponse.redirect(new URL('/auth?login=true', request.url))
+        }
+        if(request.nextUrl.search==="?edit=true"){
+            console.log();
+        }else{
+            return NextResponse.redirect(new URL("/",request.url));
+        }
     }
 }
