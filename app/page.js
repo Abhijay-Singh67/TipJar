@@ -25,7 +25,7 @@ export default function Home() {
           </button>
           </Link>
         </div>
-        <img src="coffee.png" className="rotate-z-[-20deg]" />
+        <img src="coffee.png" className="rotate-z-[-20deg] drop-shadow-2xl hover:scale-[1.2] hover:rotate-z-[0deg] transition-all duration-100" />
         <h1 className="absolute text-6xl right-[25vw] bottom-[10vh] roboto font-semibold italic z-0">15 Million+ <br /><span className="font-medium not-italic">Trusting Creators</span></h1>
       </div>
       <div className="h-[2px] w-[70vw] bg-gray-500 mt-[10vh] mx-auto"></div>

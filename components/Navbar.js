@@ -75,7 +75,9 @@ const Navbar = () => {
                 <Link href={"/dashboard"}>
                     <h1 className='cursor-pointer hover:bg-[#e7e6e6] hover:font-semibold rounded-full p-2'>Dashboard</h1>
                 </Link>
-                <h1 className='cursor-pointer hover:bg-[#e7e6e6] hover:font-semibold rounded-full p-2'>About</h1>
+                <Link href={"/about"}>
+                    <h1 className='cursor-pointer hover:bg-[#e7e6e6] hover:font-semibold rounded-full p-2'>About</h1>
+                </Link>
             </div>
             {logged ? <div className='relative rounded-full border-2'>
                 <div>

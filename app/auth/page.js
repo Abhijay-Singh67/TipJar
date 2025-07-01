@@ -45,7 +45,7 @@ const page = () => {
         }
     }
     return (
-        <div className='w-[70vw] h-[80vh] bg-[#f3f2f2] mx-auto my-[5vh] rounded-4xl'>
+        <div className='w-[70vw] h-[80vh] bg-[#f8f8f8] mx-auto my-[5vh] rounded-4xl'>
             <div className='flex relative'>
                 <div className='transition-all duration-700'>
                     <img src="loginPage.avif" className={`transition-transform duration-1000 h-[80vh] w-[50%] rounded-4xl absolute z-10 ${side ? 'translate-x-[100%]' : 'translate-x-[0%]'}`} />

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 body {
-    background-color: #e7e6e6;
+    background-color: #e7e4e4;
 }
 .stroke{
   -webkit-text-stroke: 1px black;
