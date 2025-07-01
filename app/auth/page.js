@@ -1,6 +1,6 @@
 "use client"
 import React, { useRef, useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation';
+import {useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 const page = () => {
@@ -39,7 +39,7 @@ const page = () => {
         let req = await fetch("/api/signup", { method: "POST", headers: { "Content-Type": "application/json", }, body: JSON.stringify(data) })
         let res = await req.json()
         if (res.success) {
-            window.location.href = "/dashboard";
+            window.location.href = "/info";
         } else {
             setSign(true)
         }
