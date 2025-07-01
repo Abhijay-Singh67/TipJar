@@ -14,7 +14,7 @@ export async function POST(request) {
         let pass = data.password
         let hash = await bcrypt.hash(pass,10);
         let SID = uuidv4();
-        await collection.insertOne({ username: data.username, email: data.email, password: hash, SID:""});
+        await collection.insertOne({ username: data.username, email: data.email, password: hash, SID:"", upi:"",profile:"",thumbnail:"",first:"",last:"",about:""});
         await collection.updateOne({email:data.email},{$set:{SID:SID}})
         const response =  NextResponse.json({ success: true})
             response.cookies.set({

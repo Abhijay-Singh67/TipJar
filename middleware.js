@@ -14,5 +14,4 @@ export async function middleware(request) {
             return NextResponse.redirect(new URL('/auth?login=true', request.url))
         }
     }
-
 }
