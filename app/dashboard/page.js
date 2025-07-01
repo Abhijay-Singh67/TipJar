@@ -161,7 +161,7 @@ const page = () => {
               {payerr && <h1 className='text-red-500 italic'>This user is not accepting any tips right now</h1>}
               <form ref={payform} onSubmit={(e) => { collect(e) }} className='w-[100%] flex flex-col gap-5 items-center justify-center h-[30%]'>
                 <input type="number" name="amount" className='bg-white py-3 px-5 rounded-4xl focus:outline-0 w-[50%]' min={1} max={1000} required={true} placeholder='Amount' />
-                <input type="text" name="tid" minLength={10} required={true} className='bg-white py-3 px-5 rounded-4xl focus:outline-0 w-[70%]' placeholder='UPI Transaction ID' />
+                <input type="text" name="tid" minLength={10} maxLength={40} required={true} className='bg-white py-3 px-5 rounded-4xl focus:outline-0 w-[70%]' placeholder='UPI Transaction ID' />
                 <h1 className='w-[70%] text-center italic'>*Note: The UPI Transaction ID is displayed on your UPI app after the payment is processed.</h1>
                 <button type='submit' className='cursor-pointer hover:border-b border-[#00000038] py-2 px-4 rounded-full hover:shadow'>Add Tip</button>
               </form>
