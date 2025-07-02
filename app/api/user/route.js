@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { MongoClient } from "mongodb";
-const client = new MongoClient("mongodb://localhost:27017/")
+const client = new MongoClient(MONGO_URI)
 client.connect();
 export async function GET(request) {
     const id = (request.headers.get("referer")).split("/").reverse()[0]
