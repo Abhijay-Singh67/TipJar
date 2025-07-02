@@ -98,7 +98,7 @@ const Page = () => {
                                     setFile2(e.target.files?.[0]);
                                 }} name="projectCover" accept="image/" className='mt-1 border border-[#0000004b] rounded-4xl px-2 cursor-pointer' />
                             </div>
-                            <h1 className='text-sm italic text-gray-500 text-center'>Note: It is not compulsory to upload a QR but if you don't then you would be opting out of recieving payments.</h1>
+                            <h1 className='text-sm italic text-gray-500 text-center'>Note: It is not compulsory to upload a QR but if you don&apos;t then you would be opting out of recieving payments.</h1>
                             <div className="upload flex gap-2 justify-center items-center">
                                 <div onClick={async () => {
                                     if (file1 && !file2) {
