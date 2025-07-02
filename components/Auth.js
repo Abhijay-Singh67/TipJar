@@ -39,7 +39,7 @@ const Auth = () => {
         let req = await fetch("/api/signup", { method: "POST", headers: { "Content-Type": "application/json", }, body: JSON.stringify(data) })
         let res = await req.json()
         if (res.success) {
-            window.location.href = "/info";
+            window.location.href = "/info?edit=true";
         } else {
             setSign(true)
         }
