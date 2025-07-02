@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@edgestore/react": "^0.5.2",
+    "@edgestore/server": "^0.5.2",
     "bcrypt": "^6.0.0",
     "chart.js": "^4.5.0",
     "imagekit": "^6.0.0",
