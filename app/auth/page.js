@@ -59,7 +59,7 @@ const Page = () => {
                             <input required name="password" type="password" placeholder="Password" className='bg-white rounded-full py-5 px-5' />
                             <button type='submit' className='cursor-pointer rounded-full bg-red-500 w-max self-center px-5 py-3 text-white'>Sign Up</button>
                         </form>
-                        {sign && <h2 className='text-red-600 font-semibold'>Account Already Exists !!</h2>}
+                        {sign && <h2 className='text-red-600 font-semibold'>Account Already Exists &excl;&excl;</h2>}
                         <Link href={"/auth?login=true"}>
                             <h2 className='mt-[-30px] cursor-pointer hover:bg-[#e7e6e6] hover:font-semibold rounded-full p-2'>Login</h2>
                         </Link>
