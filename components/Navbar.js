@@ -64,7 +64,7 @@ const Navbar = () => {
         <nav className='flex justify-between items-center bg-white px-6 py-2 rounded-full w-[80vw] mx-auto mt-[10px] sticky top-[10px] z-10 text-black'>
             <Link href={"/"}>
                 <div className='flex gap-1 items-center'>
-                    <img src="coffee.png" className='w-8 cursor-pointer wiggle' />
+                    <img src="https://files.edgestore.dev/l0nih16kjx9ro4s8/tipjarImages/_public/b9e4fb40-b6a4-4841-83b7-d98a54e1e831.png" className='w-8 cursor-pointer wiggle' />
                     <span className='text-2xl'>TipJar</span>
                 </div>
             </Link>

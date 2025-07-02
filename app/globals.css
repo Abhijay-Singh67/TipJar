@@ -6,11 +6,11 @@ body {
   -webkit-text-stroke: 1px black;
 }
 .cover{
-  background:url(../public/mesh.webp);
+  background:url("https://files.edgestore.dev/l0nih16kjx9ro4s8/tipjarImages/_public/d9a37813-8c1e-4793-a3aa-3232f834aa89.webp");
   background-repeat: no-repeat;
 }
 .imagebg{
-  background:url(../public/two.jpg);
+  background:url("https://files.edgestore.dev/l0nih16kjx9ro4s8/tipjarImages/_public/5c698183-179e-452d-a4fd-a25fa0946742.jpg");
   background-position: center;
   background-repeat: no-repeat;
 }

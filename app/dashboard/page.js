@@ -274,7 +274,7 @@ const page = () => {
             {following.map((i, index) => {
               return <div key={index} onClick={() => { payment(i.email) }} className="group border-t-1 border-[#00000023] w-[80%] h-[20%] flex justify-between py-2 items-center text-2xl px-5 hover:scale-125 transition-all duration-200 cursor-pointer">
                 <h1 className='text-[#ffffff9a] group-hover:text-[#ffffff]'>{i.username}</h1>
-                <img src="payment.gif" className='w-7' />
+                <img src="https://files.edgestore.dev/l0nih16kjx9ro4s8/tipjarImages/_public/42e05778-7984-4bdc-9e11-7730d8748121.gif" className='w-7' />
               </div>
             })}
           </div>

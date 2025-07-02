@@ -75,7 +75,7 @@ const page = ({ params }) => {
           <p className='mt-5 text-2xl'>{info.about}</p>
         </div>
       </div>
-      <img src="waves.svg" />
+      <img src="https://files.edgestore.dev/l0nih16kjx9ro4s8/tipjarImages/_public/51efdcef-9cd8-48c4-9247-31a02e870b04.svg" />
       <div className='bg-[#C62368] pb-10'>
         <div className="w-[100vw] flex flex-col gap-5 ">
           {projects.map((i, index) => {

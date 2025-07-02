@@ -25,13 +25,13 @@ export default function Home() {
           </button>
           </Link>
         </div>
-        <img src="coffee.png" className="rotate-z-[-20deg] drop-shadow-2xl hover:scale-[1.2] hover:rotate-z-[0deg] transition-all duration-100" />
+        <img src="https://files.edgestore.dev/l0nih16kjx9ro4s8/tipjarImages/_public/b9e4fb40-b6a4-4841-83b7-d98a54e1e831.png" className="rotate-z-[-20deg] drop-shadow-2xl hover:scale-[1.2] hover:rotate-z-[0deg] transition-all duration-100" />
         <h1 className="absolute text-6xl right-[25vw] bottom-[10vh] roboto font-semibold italic z-0">15 Million+ <br /><span className="font-medium not-italic">Trusting Creators</span></h1>
       </div>
       <div className="h-[2px] w-[70vw] bg-gray-500 mt-[10vh] mx-auto"></div>
-      <Card image="programmer.png" reverse={false} title="Let Your Fans Fund What Matters Most" description="Your projects deserve more than just likes. Give your community the chance to support you with contributions that make your dream projects possible."/>
-      <Card image="creativity.png" reverse={true} title="Fuel Your Creativity with Fan-Powered Funding" description="Let your community support what they love. Fans can fund your creative ideas, unlock exclusive content, and help you bring your passion projects to life."/>
-      <Card image="passion.png" reverse={false} title="Turn Passion Projects into Reality" description="Don't let great ideas stay on paper. With the support of your community, you can bring your boldest projects to life."/>
+      <Card image="https://files.edgestore.dev/l0nih16kjx9ro4s8/tipjarImages/_public/b0d0f25a-e57c-4d45-bcbc-e7af4b7dccfe.png" reverse={false} title="Let Your Fans Fund What Matters Most" description="Your projects deserve more than just likes. Give your community the chance to support you with contributions that make your dream projects possible."/>
+      <Card image="https://files.edgestore.dev/l0nih16kjx9ro4s8/tipjarImages/_public/13e9159e-a888-470c-b8a4-57519f6a390a.png" reverse={true} title="Fuel Your Creativity with Fan-Powered Funding" description="Let your community support what they love. Fans can fund your creative ideas, unlock exclusive content, and help you bring your passion projects to life."/>
+      <Card image="https://files.edgestore.dev/l0nih16kjx9ro4s8/tipjarImages/_public/1987f6d8-ba3b-414d-b789-c3545e14a336.png" reverse={false} title="Turn Passion Projects into Reality" description="Don't let great ideas stay on paper. With the support of your community, you can bring your boldest projects to life."/>
     </div>
   );
 }
