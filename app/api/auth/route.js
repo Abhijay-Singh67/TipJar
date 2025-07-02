@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import { MongoClient } from "mongodb";
+import clientPromise from "@/lib/mongodb";
 import { cookies } from 'next/headers';
-const client = new MongoClient(process.env.MONGO_URI)
-client.connect();
 export async function GET(request) {
+    const client = await clientPromise;
     const cookieStore = cookies();
     const SID = (await cookieStore).get("SID")?.value
     const db = client.db("TipJar");
@@ -17,6 +16,7 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
+    const client = await clientPromise;
     let data = await request.json();
     const db = client.db("TipJar");
     const collection = db.collection("userdata");

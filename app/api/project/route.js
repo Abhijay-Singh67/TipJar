@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
-import { MongoClient } from "mongodb";
+import clientPromise from "@/lib/mongodb";
 import { cookies } from 'next/headers';
 import { v4 as uuidv4 } from "uuid";
-const client = new MongoClient(process.env.MONGO_URI)
-client.connect();
 
 export async function GET(request) {
+    const client = await clientPromise;
     const cookieStore = cookies();
     const SID = (await cookieStore).get("SID")?.value
     const d = client.db("TipJar");
@@ -17,6 +16,7 @@ export async function GET(request) {
     return NextResponse.json({success:true, projects:projects})
 }
 export async function POST(request) {
+    const client = await clientPromise;
     try {
         const cookieStore = cookies();
         const SID = (await cookieStore).get("SID")?.value
@@ -41,6 +41,7 @@ export async function POST(request) {
 }
 
 export async function DELETE(request){
+    const client = await clientPromise;
     const {searchParams} = new URL(request.url);
     const pid = searchParams.get('pid');
     const cookieStore = cookies();

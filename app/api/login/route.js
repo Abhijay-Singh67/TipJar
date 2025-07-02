@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
-import { MongoClient } from "mongodb";
+import clientPromise from "@/lib/mongodb";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt"
-const client = new MongoClient(process.env.MONGO_URI)
-client.connect();
 
 export async function POST(request) {
+    const client = await clientPromise;
     let data = await request.json();
     const db = client.db("TipJar")
     const collection = db.collection("userdata")

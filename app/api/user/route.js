@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { MongoClient } from "mongodb";
-const client = new MongoClient(process.env.MONGO_URI)
-client.connect();
+import clientPromise from "@/lib/mongodb";
+
 export async function GET(request) {
+    const client = await clientPromise;
     const id = (request.headers.get("referer")).split("/").reverse()[0]
     const db = client.db("TipJar");
     const collection = db.collection("userdata");
