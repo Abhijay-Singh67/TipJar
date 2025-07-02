@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
   const [profile, setProfile] = useState("error.jpg")
   const [info, setInfo] = useState({ first: "", last: "", about: "" })
   const [projects, setProjects] = useState([]);
@@ -96,4 +96,4 @@ const page = ({ params }) => {
   )
 }
 
-export default page
+export default Page

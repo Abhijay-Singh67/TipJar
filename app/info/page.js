@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useEdgeStore } from '@/lib/edgestore';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-const page = () => {
+const Page = () => {
     const [progress, setProgress] = useState(0);
     const { edgestore } = useEdgeStore();
     const [file1, setFile1] = useState(null);
@@ -151,4 +151,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

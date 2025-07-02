@@ -1,6 +1,6 @@
 import React from 'react'
 
-const page = () => {
+const Page = () => {
   return (
     <div>
       <div className='min-h-[90vh] mt-10 flex flex-col gap-5'>
@@ -14,4 +14,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -17,7 +17,7 @@ function formatTimestamp(timestampString) {
   const month = months[date.getMonth()];
   return `${hours}:${minutes}, ${day} ${month} ${year}`;
 }
-const page = () => {
+const Page = () => {
   const [amount, setAmount] = useState(0)
   const [followers, setFollowers] = useState(0)
   const [following, setFollowing] = useState([])
@@ -284,4 +284,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import {useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-const page = () => {
+const Page = () => {
     let ref = useRef();
     const [log, setLog] = useState(false)
     const [sign, setSign] = useState(false)
@@ -84,4 +84,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
