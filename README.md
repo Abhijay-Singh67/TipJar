@@ -1,5 +1,4 @@
 # TipJar
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/Abhijay-Singh67/TipJar)
 
 TipJar is a full-stack crowdfunding platform designed for creators. It enables fans and followers to support creative projects through monetary "tips," helping creators turn their passion projects into reality. Users can create profiles, showcase their work, and receive financial support from their community.
 
