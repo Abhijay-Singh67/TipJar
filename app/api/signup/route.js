@@ -7,14 +7,20 @@ export async function POST(request) {
     const client = await clientPromise;
     let data = await request.json();
     const db = client.db("TipJar")
-    const collection = db.collection("userdata")
-    const find = await collection.find({ email: data.email }).toArray();
+    const userCollection = db.collection("userdata");
+    const projectsCollection = db.collection("projects");
+    const transactionsCollection = db.collection("transactions");
+    const followersCollection = db.collection("followers");
+    const find = await userCollection.find({ email: data.email }).toArray();
     if (find.length === 0) {
         let pass = data.password
         let hash = await bcrypt.hash(pass,10);
         let SID = uuidv4();
-        await collection.insertOne({id:uuidv4(), username: data.username, email: data.email, password: hash, SID:"", upi:"",profile:"",thumbnail:"",first:"",last:"",about:""});
-        await collection.updateOne({email:data.email},{$set:{SID:SID}})
+        await userCollection.insertOne({id:uuidv4(), username: data.username, email: data.email, password: hash, SID:"", upi:"",profile:"",thumbnail:"",first:"",last:"",about:""});
+        await userCollection.updateOne({email:data.email},{$set:{SID:SID}})
+        await projectsCollection.insertOne({email:data.email, projects:[]});
+        await transactionsCollection.insertOne({email:data.email, transactions:[]});
+        await followersCollection.insertOne({email:data.email, followers: 0, following:[]});
         const response =  NextResponse.json({ success: true})
             response.cookies.set({
                 name: "SID",

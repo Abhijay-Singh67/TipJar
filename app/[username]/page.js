@@ -1,11 +1,14 @@
 "use client"
 import React, { useEffect, useState } from 'react'
+import { useParams } from "next/navigation";
 
 const Page = ({ params }) => {
   const [profile, setProfile] = useState("error.jpg")
   const [info, setInfo] = useState({ first: "", last: "", about: "" })
   const [projects, setProjects] = useState([]);
   const [follows, setFollows] = useState(false)
+  const uparams = useParams();
+  const profileID = uparams.username;
   useEffect(() => {
     (async () => {
       let req = await fetch("/api/user");
@@ -26,7 +29,7 @@ const Page = ({ params }) => {
     })()
   }, [])
   const getProjects = async () => {
-    let req = await fetch("/api/project")
+    let req = await fetch(`/api/project?id=${profileID}`)
     let res = await req.json();
     if ((Array.from(res.projects.projects)).length > 0) {
       setProjects(Array.from(res.projects.projects))

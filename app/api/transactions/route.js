@@ -10,8 +10,11 @@ export async function GET(request) {
     const transactions = db.collection("transactions")
     const userdb = db.collection("userdata")
     let email = (await userdb.findOne({SID:SID})).email
-    let transaction = (await transactions.findOne({email:email})).transactions
-    return NextResponse.json({success:true, transaction:transaction})
+    const transactionDoc = await transactions.findOne({ email });
+    return NextResponse.json({
+        success: true,
+        transaction: transactionDoc?.transactions || []
+    });
 }
 
 export async function POST(request) {

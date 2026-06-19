@@ -5,11 +5,13 @@ import { v4 as uuidv4 } from "uuid";
 
 export async function GET(request) {
     const client = await clientPromise;
+    const {searchParams} = new URL(request.url);
+    const id = searchParams.get("id");
     const cookieStore = cookies();
     const SID = (await cookieStore).get("SID")?.value
     const d = client.db("TipJar");
     const coll = d.collection("userdata");
-    const email = (await coll.findOne({ SID: SID })).email;
+    const email = (await coll.findOne(id?{id:id}:{SID:SID})).email;
     const db = client.db("TipJar")
     const collection = db.collection("projects")
     let projects = await collection.findOne({email:email})
